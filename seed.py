@@ -29,9 +29,9 @@ def load_movies():
             if row[1] == 'unknown':
                 continue
             else:
-                title = row[1][:-6]
-                date_string = row[2].replace('-', ' ') #replace dashes with spaces so we can parse into datetime object
-                released_at = datetime.strptime(date_string, '%d %b %Y') # 01-Jan-1995 needs to be parsed and created as a datetime
+                title = row[1][:-7]
+                date_string = row[2]
+                released_at = datetime.strptime(date_string, '%d-%b-%Y') # 01-Jan-1995 needs to be parsed and created as a datetime
                 imdb_url = row[4]
                 movie_inserted = Movie(title=title, released_at=released_at, imdb_url=imdb_url)
                 db.session.add(movie_inserted)
@@ -56,6 +56,6 @@ def load_ratings():
 if __name__ == "__main__":
     connect_to_db(app)
 
-    load_users()
+    # load_users()
     load_movies()
-    load_ratings()
+    # load_ratings()
