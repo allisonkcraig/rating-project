@@ -12,7 +12,7 @@ db = SQLAlchemy()
 class User(db.Model):
     """User of ratings website."""
 
-    __tablename__ = "users"
+    __tablename__ = "Users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     email = db.Column(db.String(64), nullable=True)
@@ -29,7 +29,7 @@ class User(db.Model):
 class Movie(db.Model):
     """Movie Table of ratings website."""
     
-    __tablename__ = "movies"
+    __tablename__ = "Movies"
 
     movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     title = db.Column(db.String(64), nullable=False)
@@ -40,7 +40,7 @@ class Movie(db.Model):
 class Rating(db.Model):
     """User Ratings of ratings website."""
     
-    __tablename__ = "ratings"
+    __tablename__ = "Ratings"
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     movie_id = db.Column(db.Integer, nullable=False)
