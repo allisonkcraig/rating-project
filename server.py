@@ -27,23 +27,21 @@ def index():
 
     return render_template('homepage.html')
 
-@app.route('/movies')
+@app.route('/movie-list')
 def movies_list_page():
     """Movie List Page. Can Organize Movie info in a table that you can Organize by title or release date
         WILL NEED ROUTES FOR AJAX
     """
+    movies = Movie.query.all()
+    return render_template('movies-list.html', movies=movies)
 
-    return render_template('movies-list.html')
 
 
-
-@app.route('/movie-detail/<int:movie_id>')
-def movie_detail_page():
+@app.route('/movie-detail/<int:id_movie>')
+def movie_detail_page(id_movie):
     """Individual Movie Info Page."""
-    ## CHANGE TO MOVIE THINGS
-    # melon = model.Melon.get_by_id(id)
-    # print melon
-    return render_template("movie-detail.html")
+    movie = Movie.query.filter(Movie.movie_id == id_movie).one()
+    return render_template("movie-detail.html", movie=movie)
     #will need to pass movie query information through jinja into template
 
 
@@ -55,11 +53,13 @@ def user_list_page():
     return render_template("user-list.html", users=users)
 
 
-@app.route('/user-profile/<int:user_id>')
-def user_detail_page():
-    """List of all users in a pretty pretty table."""
-
-    return render_template("user-detail.html")
+@app.route('/user-profile/<int:id_user>')
+def user_detail_page(id_user):
+    """User information on a  pretty pretty table."""
+    user_id = id_user
+    user = User.query.filter(User.user_id == user_id).one()
+    ratings = Rating.query.filter(Rating.user_id == user_id).all()
+    return render_template("user-detail.html", user=user, ratings=ratings)
 
 
 @app.route('/login', methods=['GET'])

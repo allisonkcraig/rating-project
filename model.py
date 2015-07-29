@@ -27,6 +27,12 @@ class User(db.Model):
         return current_user_id
 
 
+
+    def user_deets(self):
+        """Get user details to load onto page"""
+        pass
+
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 

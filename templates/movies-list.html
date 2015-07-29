@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Ratings</h1>
+ <h2>Users</h2>
+    <ul>
+      <table class="table-striped"> 
+        <tr>
+            <th>Movie Title</th>
+            <th>Movie Year</th>
+            <th>IMDB Link</th>
+        </tr>
+    
+    {% for movie in movies %}
+        <tr> 
+            <td>
+                <a href="/movie-detail/{{ movie.movie_id }}" id="id_movie">{{ movie.title }} 
+            </td>
+            <td>{{ movie.released_at }}</td>
+            <td><a href="{{ movie.imdb_url }}">{{ movie.imdb_url }}</a>
+            </td>
+        </tr>
+    {% endfor %}
 
-<h2>Movies</h2>
-<p><a href="/movies">View all movies</a></p>
+    </table>
+    </ul>
+<script>
 
-<h2>Users</h2>
-<p><a href="/users">View all users</a></p>
-
+</script>
 {% endblock %}
