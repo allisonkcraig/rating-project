@@ -20,6 +20,13 @@ class User(db.Model):
     age = db.Column(db.Integer, nullable=True)
     zipcode = db.Column(db.String(15), nullable=True)
 
+    @classmethod
+    def user_auth(cls, email, password):
+        """Get ID of User whoes email and password is given in the arguments"""
+        current_user_id = db.session.query(cls.user_id, cls.email).filter(cls.email==email, cls.password==password).first()
+        return current_user_id
+
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 

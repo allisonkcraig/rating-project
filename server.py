@@ -62,22 +62,36 @@ def user_detail_page():
     return render_template("user-detail.html")
 
 
-@app.route('/loggin')
+@app.route('/login', methods=['GET'])
 def loggin_page():
     """List of all users in a pretty pretty table.
         MAY BE MODAL WITH AJAX
     """
-
     return render_template("loggin.html")
 
 
+@app.route('/login', methods=['POST'])
+def process_login():
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user_info = User.user_auth(email, password)
+    user_id = user_info[0]
+    user_email = user_info[1]
+
+    if user_email != None:
+        session['user_id'] = user_id
+        return render_template("homepage.html", user_id=user_id, email=user_email)
+    else:
+        return render_template("register.html", user_id=user_id)   
+
 @app.route('/logout')
-def loggin_page():
+def logout_page():
     """List of all users in a pretty pretty table.
         MAY BE MODAL WITH AJAX
     """
-
-    return render_template("logout.html")
+    del session['user_id']
+    return render_template("homepage.html")
 
 
 @app.route('/registration')
