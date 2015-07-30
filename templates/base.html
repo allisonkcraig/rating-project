@@ -1,29 +1,34 @@
 <!doctype html>
 <html>
 <head>
-  <title>Aunt Besty's Passive Agressive Movie Advice</title>
+  <title>Your Passive Agressive Aunt's Movie Advice</title>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-
+  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar navbar-default navbar-static-top">
     <div class="container">
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Aunt Besty's Passive Agressive Movie Advice</a>
-            
-            {% if email is defined %}
-            <a class="navbar" href="/user-detail">Hello, {{ email }}!</a>
-            {% else %}
-            <a class="navbar" href="/user-detail">Hello!</a>
-            {% endif %}
-        
+            <img class="flamingo" src="static/flamingo.png">
+            <img class="flamingo" src="static/flamingo.png">
+            <img class="flamingo" src="static/flamingo.png">
+            <a class="navbar-brand" id="logo" href="/">Aunt Betsy's Passive Agressive Movie Advice</a>
         </div>
-
+            
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    {% if email is defined %}
+                        <a class="navbar" href="/user-list">Hello, {{ email }}!</a>
+                    {% else %}
+                        <a class="navbar" href="/user-list">Hello!</a>
+                    {% endif %}
+                </li>
                 <li>
                     <a href="/user-list">
                         View User List
@@ -35,9 +40,9 @@
                     </a>
                 </li>
                 {% if session['user_id'] is defined %}
-                  <li><a href="/logout" id="logout">Sign Out</a></li> 
+                    <li><a href="/logout" id="logout">Sign Out</a></li> 
                 {% else %}    
-                  <li><a href="/login">Sign   In</a></li>
+                    <li><a href="/login">Sign   In</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -45,9 +50,9 @@
     </div>
 </div>
   <div class="header"><title></title></div>
-
+  <div class="container">
   {% block content %} put your content here {% endblock %}
-
-<div class="footer">Brought to you by AB Productions </div>
+</div>
+<div class="footer container">Brought to you by AB Productions </div>
 </body>
 </html>
