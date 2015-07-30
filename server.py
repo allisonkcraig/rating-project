@@ -32,16 +32,34 @@ def movies_list_page():
     """Movie List Page. Can Organize Movie info in a table that you can Organize by title or release date
         WILL NEED ROUTES FOR AJAX
     """
-    movies = Movie.query.all()
+    movies = Movie.query.order_by(Movie.title).all()
     return render_template('movies-list.html', movies=movies)
 
 
-
-@app.route('/movie-detail/<int:id_movie>')
+@app.route('/movie-detail/<int:id_movie>', methods=["GET"])
 def movie_detail_page(id_movie):
     """Individual Movie Info Page."""
     movie = Movie.query.filter(Movie.movie_id == id_movie).one()
-    return render_template("movie-detail.html", movie=movie)
+    ratings = Rating.query.filter(Rating.movie_id == id_movie).all()
+
+    return render_template("movie-detail.html", movie=movie, ratings=ratings)
+    #will need to pass movie query information through jinja into template
+
+
+#to add a rating to db
+@app.route('/movie-detail/<int:id_movie>',methods=["POST"])
+def movie_detail_page_score(id_movie):
+    """Individual Movie Info Page."""
+    movie = Movie.query.filter(Movie.movie_id == id_movie).one()
+    ratings = Rating.query.filter(Rating.movie_id == id_movie).all()
+    
+    score = request.form.get('score')
+    user_id = session['user_id']
+    movie_id = movie.movie_id
+
+    add_rating_to_db(score, user_id, movie_id)
+    flash('You added a score!')
+    return render_template("movie-detail.html", movie=movie, ratings=ratings)
     #will need to pass movie query information through jinja into template
 
 

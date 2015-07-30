@@ -80,6 +80,11 @@ class Rating(db.Model):
 
         return "<Movie ID= %s User ID= %s Score= %s>" % (self.movie_id, self.user_id, self.score)
 
+    @classmethod
+    def add_rating_to_db(cls, score, movie_id):
+        score_to_add = Rating(movie_id, session['user_id'], score)
+        Rating.add(score_to_add)
+
 
 # Helper functions
 
