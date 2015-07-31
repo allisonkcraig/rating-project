@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, url_for
 
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -38,9 +38,31 @@ def movies_list_page():
 
 @app.route('/movie-detail/<int:id_movie>', methods=["GET"])
 def movie_detail_page(id_movie):
-    """Individual Movie Info Page."""
+    """Individual Movie Info Page.
+
+
+        1.Given a user U who has not rated movie M, find all other users who have rated that movie.
+        2.For each other user O, find the movies they have rated in common with user U.
+        3.Pair up the common movies, then feed each pair list into the Pearson function to find similarity S.
+        4.Rank the users by their similarities, and find the user with the highest similarity, O’.
+        5.Multiply the similarity coefficient of user O’ with their rating for movie M. This is your predicted rating.
+    """
     movie = Movie.query.filter(Movie.movie_id == id_movie).one()
-    ratings = Rating.query.filter(Rating.movie_id == id_movie).all()
+    ratings = Rating.query.filter(Rating.movie_id == id_movie)
+
+    has_user_rated = Rating.query.filter(Rating.user_id == session['user_id']).first() #will return None if none   
+    user_who_have_rated = ratings.filter(Rating.movie_id == movie_id).all()
+
+    #Average Rating
+    #Pearson Prediction
+    #Insult
+
+    # ADD PEARSON CORRELATION
+    if session['user_id'] is defined:
+        if has_user_rated == None:
+
+
+
 
     return render_template("movie-detail.html", movie=movie, ratings=ratings)
     #will need to pass movie query information through jinja into template
@@ -51,15 +73,18 @@ def movie_detail_page(id_movie):
 def movie_detail_page_score(id_movie):
     """Individual Movie Info Page."""
     movie = Movie.query.filter(Movie.movie_id == id_movie).one()
-    ratings = Rating.query.filter(Rating.movie_id == id_movie).all()
     
     score = request.form.get('score')
     user_id = session['user_id']
     movie_id = movie.movie_id
 
-    add_rating_to_db(score, user_id, movie_id)
+    score_to_add = Rating(user_id=user_id, movie_id=movie_id, score=score) 
+    db.session.add(score_to_add)
+    db.session.commit()    
+
     flash('You added a score!')
-    return render_template("movie-detail.html", movie=movie, ratings=ratings)
+    # return redirect('/movie-detail/%s' % movie_id)
+    return redirect(url_for('movie_detail_page', id_movie=movie_id))
     #will need to pass movie query information through jinja into template
 
 

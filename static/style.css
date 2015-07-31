@@ -29,3 +29,7 @@ body {
     font-family: 'Pacifico', cursive;
     text-shadow: 2px 2px #A7DBD8;
 }
+
+.tiny-mingos {
+    height: 30px;
+}

@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if session['user_id'] is defined %}
+    SHOW THE NEW STUFF
+{% endif %}
+
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
@@ -16,13 +20,18 @@
 
 {% if session['user_id'] is defined %}
     <h3>Submit A Score</h3>
-    <form action="/movie-detail" method="POST">
-            <label><input type="radio" name="score" value=1 >1</label>
-            <label><input type="radio" name="score" value=2 >2</label>
-            <label><input type="radio" name="score" value=3 >3</label>
-            <label><input type="radio" name="score" value=4 >4</label>
-            <label><input type="radio" name="score" value=5 >5</label>
-        </br><button type="submit" class="btn btn-default">Submit Your Score!</button>
+    <form action='/movie-detail/{{ movie.movie_id }}' id="id_movie" method="POST">
+        <br>
+            <label><input type="radio" name="score" value=1 >1<img class="tiny-mingos" src="../static/flamingo.png"></label>
+        <br>    
+            <label><input type="radio" name="score" value=2 >2<img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"></label>
+        <br>    
+            <label><input type="radio" name="score" value=3 >3<img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"></label>
+        <br>    
+            <label><input type="radio" name="score" value=4 >4<img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"></label>
+        <br>    
+            <label><input type="radio" name="score" value=5 >5<img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"><img class="tiny-mingos" src="../static/flamingo.png"></label>
+        </br><button type="submit" class="btn btn-default" >Submit Your Score!</button>
     </form>
 
 {% endif %}
