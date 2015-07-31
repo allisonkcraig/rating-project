@@ -44,22 +44,24 @@ def movie_detail_page(id_movie):
         1.Given a user U who has not rated movie M, find all other users who have rated that movie.
         2.For each other user O, find the movies they have rated in common with user U.
         3.Pair up the common movies, then feed each pair list into the Pearson function to find similarity S.
-        4.Rank the users by their similarities, and find the user with the highest similarity, O’.
-        5.Multiply the similarity coefficient of user O’ with their rating for movie M. This is your predicted rating.
+        4.Rank the users by their similarities, and find the user with the highest similarity, O.
+        5.Multiply the similarity coefficient of user O with their rating for movie M. This is your predicted rating.
     """
+
     movie = Movie.query.filter(Movie.movie_id == id_movie).one()
     ratings = Rating.query.filter(Rating.movie_id == id_movie)
 
-    has_user_rated = Rating.query.filter(Rating.user_id == session['user_id']).first() #will return None if none   
-    user_who_have_rated = ratings.filter(Rating.movie_id == movie_id).all()
+     #will return None if none   
+    user_who_have_rated = ratings.filter(Rating.movie_id == id_movie).all()
 
     #Average Rating
     #Pearson Prediction
     #Insult
 
-    # ADD PEARSON CORRELATION
-    if session['user_id'] is defined:
-        if has_user_rated == None:
+    # # ADD PEARSON CORRELATION
+    # if session.get('user_id'):
+    #     has_user_rated = Rating.query.filter(Rating.user_id == session['user_id']).all()
+    #     if has_user_rated == None:
 
 
 

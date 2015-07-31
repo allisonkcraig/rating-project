@@ -3,6 +3,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from correlation import pearson
 import math
+
 # This is the connection to the SQLite database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
 # object, where we do most of our interactions (like committing, etc.)
@@ -85,7 +86,16 @@ class Rating(db.Model):
     # def add_rating_to_db(cls, score, user_id, movie_id):
     #     score_to_add = cls(movie_id, user_id, score)
     #     db.session.add(score_to_add)
+    def has_current_user_rate(user_id, movie_id):
+        """check if user had rated this movie"""
+        
+        user_rating_list = Rating.query.filter(Rating.movie_id == movie_id, Rating.user_id == user_id).first()
+        return user_rating_list
 
+
+    def query_for_user_who_rated_movie(movie_id):
+        user_list = Rating.query.filter(Rating.movie_id == movie_id)
+        pass
 
 # Helper functions
 
